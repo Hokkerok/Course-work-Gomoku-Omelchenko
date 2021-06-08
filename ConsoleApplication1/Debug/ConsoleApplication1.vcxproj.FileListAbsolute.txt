@@ -1,0 +1,3 @@
+C:\Users\Андрей\Desktop\Для универа\2 курс 2 симмместр\прога\лаба 1 операционнки\ConsoleApplication1\Debug\ConsoleApplication1.exe
+C:\Users\Андрей\Desktop\КУРСАЧ2\лаба 1-2 операционнки\ConsoleApplication1\Debug\ConsoleApplication1.exe
+C:\Users\Андрей\Desktop\GOMOKU\GOmoke\ConsoleApplication1\Debug\ConsoleApplication1.exe
