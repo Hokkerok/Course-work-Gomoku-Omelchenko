@@ -12,7 +12,7 @@ private:
 	bool IsRowMade(unsigned int row);
 	bool IsColumnMade(unsigned int col);
 	bool IsDiagMade();
-	bool IsBoardFull();
+
 	CellType Type;
 public:
 	TicTacBoard(unsigned int size); //конструктор которому мы даем его размеры

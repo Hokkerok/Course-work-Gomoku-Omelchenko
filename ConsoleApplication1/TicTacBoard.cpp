@@ -199,103 +199,81 @@ bool TicTacBoard::IsColumnMade(unsigned int col)
 
 bool TicTacBoard::IsDiagMade()////////////////////////////////сюда смотри ебло тупое
 {
-	int numX = 0, numO = 0;//горизонталь с лево на право
-	for (unsigned int i = 0; i < 11; i++)
-	{
-		for (unsigned j = 0; j < 11; j++)
+	int numX = 0, numO = 0;
+	for ( int i = 0; i < 10; i++)
+		for ( int j = 0; j < 10; j++)
 		{
 			if (cells[i][j] == CellType_O)
-			{
-				for (unsigned z = 0; z < 5; z++)
+			for (int z = 0; z < 5; z++)
+			{ 
+				if (cells[i + z][j + z] == CellType_O)
+					numO++;
+				else 
 				{
-
-					if (cells[i + z][j + z] == CellType_O)
-						numO++;
-					else
-					{
-						numO = 0;
-						break;
-					}
-
-				}
-				if ((numO == 5))
+					numO = 0;
 					break;
+				}
 			}
 			if (cells[i][j] == CellType_X)
+			for (int z = 0; z < 5; z++)
 			{
-				for (unsigned z = 0; z < 5; z++)
+				if (cells[i + z][j + z] == CellType_X)
+					numX++;
+				else
 				{
-
-					if (cells[i + z][j + z] == CellType_X)
-						numX++;
-					else
-					{
-						numX = 0;
-						break;
-					}
-
-				}
-				if ((numX == 5))
+					numX = 0;
 					break;
+				}
 			}
+
 		}
 
-		if ((numO == 5))
-			break;
-		if ((numX == 5))
-			break;
-	}
 
-	for (unsigned int i = 0; i < 11; i++)//горизонталь с права на лево
+if ((numX == boardsize) || (numO == boardsize))
 	{
-		for (unsigned int j = 0; j < 11; j++)//горизонталь с права на лево
-		{
-			if (cells[i][boardsize - j - 1] == CellType_O)
-			{//сюда  надо ограничитель
-				for (unsigned z = 0; z < 5; z++)
-				{
-
-					if (cells[i + z][(11 - j - 1) + z] == CellType_O)
-						numX++;
-					else
-					{
-						numX = 0;
-						break;
-					}
-				}
-
-
-				if ((numX == 5))
-					break;
-			}
-			if (cells[i][11 - j - 1] == CellType_X)
-			{//сюда  надо ограничитель
-				for (unsigned z = 0; z < 5; z++)
-				{
-
-					if (cells[i + j][(11 - j - 1) + z] == CellType_X)
-						numX++;
-					else
-					{
-						numX = 0;
-						break;
-					}
-				}
-
-
-				if ((numX == 5))
-					break;
-			}
-		}
-
-		if ((numO == 5))
-			break;
-		if ((numX == 5))
-			break;
+		bVictory = true;
+		return true;
 	}
 
 
-	if ((numX == 5) || (numO == 5))
+
+	numX = numO = 0;
+	for (unsigned int i=4 ; i<15; i++)
+		for (unsigned int j = 0; j < 10; j++)
+		{
+			if (cells[i][j] == CellType_O)
+			for (unsigned int z = 0; z < 5; z++)
+			{
+				if (cells[i-z][j+z] == CellType_O)
+					numO++;
+				else
+				{
+					numO = 0;
+					break;
+				}
+			}
+			if (cells[i][j] == CellType_X)
+			for (unsigned int z = 0; z < 5; z++)
+			{
+				if (cells[i - z][ j + z] == CellType_X)
+					numX++;
+				else
+				{
+					numX = 0;
+					break;
+				}
+			}
+		}
+
+	
+	
+	
+	
+	
+	
+	
+	
+if ((numX == 5) || (numO == 5))
 	{
 		bVictory = true;
 		return true;
