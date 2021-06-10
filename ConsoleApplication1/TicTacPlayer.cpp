@@ -23,3 +23,8 @@ string TicTacPlayer::GetName()//имя
 {
 	return this->name;
 }
+
+void TicTacPlayer::SetWindow(RenderWindow* window)
+{
+	this->window = window;
+}

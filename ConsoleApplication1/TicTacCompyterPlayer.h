@@ -7,7 +7,7 @@ class TicTacCompyterPlayer:public TicTacPlayer
 public:
 	TicTacCompyterPlayer();
 	virtual~TicTacCompyterPlayer();
-	virtual bool MakeMove();//движение компудахтера
+	virtual int MakeMove();//движение компудахтера
 		//функции для анализа игровой ситуации благополчно спизжено из боарда
 //	bool IsRowMadeThire(unsigned int row);
 	//bool IsColumnMadeThire(unsigned int col);

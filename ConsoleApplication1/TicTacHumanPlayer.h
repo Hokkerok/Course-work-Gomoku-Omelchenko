@@ -8,9 +8,11 @@
 class TicTacHumanPlayer:public TicTacPlayer//унаслодован от класса игрока
 {
 public:
+	int col = 15, row = 15;
 	TicTacHumanPlayer();//конструктор
 	virtual~TicTacHumanPlayer();//деструктор
-	bool MakeMove();//игроку умеет двигаться
+	int MakeMove();//игроку умеет двигаться
+	virtual void SetHumanColsRows(bool& closed);
 };
 
 

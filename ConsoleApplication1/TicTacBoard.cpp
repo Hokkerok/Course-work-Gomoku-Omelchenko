@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "TicTacBoard.h"
+#include <SFML/Graphics.hpp>
 
-
-
+using namespace sf;
 using namespace std;
 
 
@@ -38,37 +38,46 @@ TicTacBoard::~TicTacBoard() //деструктор
 	delete[]cells;
 };
 
-void  TicTacBoard::Show()//то как мы ходим
+void TicTacBoard::Show(RenderWindow& window)//то как мы ходим
 {
-	cout << " ";
-	for (int j = 0; j < boardsize; j++)
-		cout << j << " ";
-	cout << endl;
-	for (unsigned int i = 0; i < boardsize; i++)
+	Texture TextureBoard1, TextureKamen1, TextureKamen2;
+	Sprite Board1, KamenW, KamenB;
+
+	TextureBoard1.loadFromFile("images/Board.jpg");
+	TextureKamen1.loadFromFile("images/kamen_W.png");
+	TextureKamen2.loadFromFile("images/kamen_B.png");
+	Board1.setTexture(TextureBoard1);
+	Board1.setPosition(0, 51);
+
+	KamenW.setTexture(TextureKamen1);
+	KamenB.setTexture(TextureKamen2);
+
+	window.draw(Board1);
+
+	for (int i = 0; i < boardsize; i++)
 	{
-		cout << i << " ";
-		for (unsigned int j = 0; j < boardsize; j++)
+		for (int j = 0; j < boardsize; j++)
 		{
 			switch (cells[i][j])
 			{
 			case CellType_X:
-				cout << "X";
+				KamenW.setPosition(13 + j * 42, 64 + i * 42);
+				window.draw(KamenW);
 				break;
 			case CellType_O:
-				cout << "O";
-				break;
-			case CellType_Empty:
-				cout << "-";
+				KamenB.setPosition(13 + j * 42, 64 + i * 42);
+				window.draw(KamenB);
 				break;
 			}
-			cout << " ";
 		}
-		cout << endl;
 	}
+
+	window.display();
 };
 
 void TicTacBoard::SetCell(unsigned int xpos, unsigned int ypos, CellType ct)//установка в конкретную ячейку х или о
 {
+	this->Type = ct;
 	cells[ypos][xpos] = ct;
 };
 
@@ -188,17 +197,19 @@ bool TicTacBoard::IsColumnMade(unsigned int col)
 	return false;
 }
 
-bool TicTacBoard::IsDiagMade()
+bool TicTacBoard::IsDiagMade()////////////////////////////////сюда смотри ебло тупое
 {
 	int numX = 0, numO = 0;//горизонталь с лево на право
 	for (unsigned int i = 0; i < 11; i++)
 	{
-		if (cells[i][i] == CellType_O)
+		for (unsigned j = 0; j < 11; j++)
 		{
-			for (unsigned j = 0; j < 5; j++)
+			if (cells[i][j] == CellType_O)
 			{
+				for (unsigned z = 0; z < 5; z++)
+				{
 
-					if (cells[i + j][i + j] == CellType_O)
+					if (cells[i + z][j + z] == CellType_O)
 						numO++;
 					else
 					{
@@ -206,16 +217,16 @@ bool TicTacBoard::IsDiagMade()
 						break;
 					}
 
+				}
+				if ((numO == 5))
+					break;
 			}
-			if ((numO == 5))
-				break;
-		}
-		if (cells[i][i] == CellType_X)
-		{
-			for (unsigned j = 0; j < 5; j++)
+			if (cells[i][j] == CellType_X)
 			{
+				for (unsigned z = 0; z < 5; z++)
+				{
 
-					if (cells[i + j][i + j] == CellType_X)
+					if (cells[i + z][j + z] == CellType_X)
 						numX++;
 					else
 					{
@@ -223,56 +234,67 @@ bool TicTacBoard::IsDiagMade()
 						break;
 					}
 
+				}
+				if ((numX == 5))
+					break;
 			}
-			if ((numX == 5))
-				break;
 		}
+
+		if ((numO == 5))
+			break;
+		if ((numX == 5))
+			break;
+	}
+
+	for (unsigned int i = 0; i < 11; i++)//горизонталь с права на лево
+	{
+		for (unsigned int j = 0; j < 11; j++)//горизонталь с права на лево
+		{
+			if (cells[i][boardsize - j - 1] == CellType_O)
+			{//сюда  надо ограничитель
+				for (unsigned z = 0; z < 5; z++)
+				{
+
+					if (cells[i + z][(11 - j - 1) + z] == CellType_O)
+						numX++;
+					else
+					{
+						numX = 0;
+						break;
+					}
+				}
+
+
+				if ((numX == 5))
+					break;
+			}
+			if (cells[i][11 - j - 1] == CellType_X)
+			{//сюда  надо ограничитель
+				for (unsigned z = 0; z < 5; z++)
+				{
+
+					if (cells[i + j][(11 - j - 1) + z] == CellType_X)
+						numX++;
+					else
+					{
+						numX = 0;
+						break;
+					}
+				}
+
+
+				if ((numX == 5))
+					break;
+			}
+		}
+
+		if ((numO == 5))
+			break;
+		if ((numX == 5))
+			break;
 	}
 
 
-		numX = numO = 0;
-		for (unsigned int i = 0; i < 11; i++)//горизонталь с права на лево
-		{
-			if (cells[i][boardsize - i - 1] == CellType_O)
-			{//сюда  надо ограничитель
-				for (unsigned j = 0; j < 5; j++)
-				{
-
-						if (cells[i + j][(11 - i - 1) + j] == CellType_O)
-							numX++;
-						else
-						{
-							numX = 0;
-							break;
-						}
-					}
-
-				
-				if ((numX == 5))
-					break;
-			}
-			if (cells[i][11 - i - 1] == CellType_X)
-			{//сюда  надо ограничитель
-				for (unsigned j = 0; j < 5; j++)
-				{
-
-						if (cells[i + j][(11 - i - 1) + j] == CellType_X)
-							numX++;
-						else
-						{
-							numX = 0;
-							break;
-						}
-					}
-
-				
-				if ((numX == 5))
-					break;
-			}
-
-		}
-	
-	
 	if ((numX == 5) || (numO == 5))
 	{
 		bVictory = true;
@@ -296,8 +318,9 @@ bool TicTacBoard::CheckEndCondition()
 	return false;
 }
 
-	bool TicTacBoard::IsVictory()
+	bool TicTacBoard::IsVictory(CellType& Type)
 	{
+		Type = this->Type;
 		return bVictory;
 	}
 

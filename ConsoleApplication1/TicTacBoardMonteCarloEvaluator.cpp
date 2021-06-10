@@ -33,10 +33,11 @@ void TicTacBoardMonteCarloEvaluator::EvaluateBoard()
 	player1->SetBoard(b);
 	player2->SetBoard(b);
 	currentPlayer = (this->startCellType == CellType_X) ? player1 : player2;
+	CellType Type;
 
 	if (b->CheckEndCondition())
 	{
-		if (b->IsVictory())
+		if (b->IsVictory(Type))
 			if (currentPlayer == player1)
 				numLosses++;
 			else
@@ -49,11 +50,11 @@ void TicTacBoardMonteCarloEvaluator::EvaluateBoard()
 
 	while (!bGameFinished)
 	{
-		while (!currentPlayer->MakeMove());
+		while (currentPlayer->MakeMove() != 1);
 
 		if (b->CheckEndCondition())
 		{
-			if (b->IsVictory())
+			if (b->IsVictory(Type))
 				if (currentPlayer == player1)
 					numVictories++;
 				else

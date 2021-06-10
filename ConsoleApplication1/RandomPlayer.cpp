@@ -10,7 +10,7 @@ RandomPlayer::~RandomPlayer()
 }
 
 
-bool RandomPlayer::MakeMove()
+int RandomPlayer::MakeMove()
 {
 	unsigned int row, col;
 
@@ -20,8 +20,8 @@ bool RandomPlayer::MakeMove()
 	if (this->board->CheckLegal(col, row))
 	{
 		this->board->SetCell(col, row, this->cellType);
-		return true;
+		return 1;
 	}
 
-	return false;
+	return 0;
 }

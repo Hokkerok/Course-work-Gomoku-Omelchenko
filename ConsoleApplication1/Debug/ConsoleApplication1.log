@@ -1,2 +1,8 @@
-﻿  TicTacCompyterPlayer.cpp
-  ConsoleApplication1.vcxproj -> C:\Users\Андрей\Desktop\GOMOKU\GOmoke\ConsoleApplication1\Debug\ConsoleApplication1.exe
+﻿  TicTacBoard.cpp
+C:\Users\Андрей\Documents\GitHub\Course-work-Gomoku-Omelchenko\ConsoleApplication1\TicTacBoard.cpp(57,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\Андрей\Documents\GitHub\Course-work-Gomoku-Omelchenko\ConsoleApplication1\TicTacBoard.cpp(59,21): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\Андрей\Documents\GitHub\Course-work-Gomoku-Omelchenko\ConsoleApplication1\TicTacBoard.cpp(64,40): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+C:\Users\Андрей\Documents\GitHub\Course-work-Gomoku-Omelchenko\ConsoleApplication1\TicTacBoard.cpp(64,27): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+C:\Users\Андрей\Documents\GitHub\Course-work-Gomoku-Omelchenko\ConsoleApplication1\TicTacBoard.cpp(68,40): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+C:\Users\Андрей\Documents\GitHub\Course-work-Gomoku-Omelchenko\ConsoleApplication1\TicTacBoard.cpp(68,27): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+  ConsoleApplication1.vcxproj -> C:\Users\Андрей\Documents\GitHub\Course-work-Gomoku-Omelchenko\ConsoleApplication1\Debug\ConsoleApplication1.exe

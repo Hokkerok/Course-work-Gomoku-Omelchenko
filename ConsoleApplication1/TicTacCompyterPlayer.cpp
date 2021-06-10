@@ -3,6 +3,7 @@
 #include <vector>
 #include "TicTacBoard.h"
 #include "CellType.h"
+#include "SFML/Graphics.hpp"
 
 
 
@@ -20,7 +21,7 @@ TicTacCompyterPlayer::~TicTacCompyterPlayer()
 }
 
 
-bool TicTacCompyterPlayer::MakeMove()
+int TicTacCompyterPlayer::MakeMove()
 {
 	vector <TicTacBoardMonteCarloEvaluator*>evaluators;
 	for (unsigned int i = 0; i < 15; i++)
@@ -28,7 +29,7 @@ bool TicTacCompyterPlayer::MakeMove()
 			if (this->board->CheckLegal(j, i))
 			{
 				this->board->SetCell(j, i, this->cellType);
-				evaluators.push_back(new TicTacBoardMonteCarloEvaluator(this->board, 1000, (this->cellType == CellType_X) ? CellType_O : CellType_X, j, i));
+				evaluators.push_back(new TicTacBoardMonteCarloEvaluator(this->board, 10, (this->cellType == CellType_X) ? CellType_O : CellType_X, j, i));
 				this->board->SetCell(j, i, CellType_Empty);
 			}
 	for (auto evaluator = evaluators.begin(); evaluator != evaluators.end(); evaluator++)
@@ -66,7 +67,7 @@ bool TicTacCompyterPlayer::MakeMove()
 		delete (*evaluator);
 	evaluators.clear();
 	biggestWinEvaluators.clear();
-	return true;
+	return 1;
 }
 
 

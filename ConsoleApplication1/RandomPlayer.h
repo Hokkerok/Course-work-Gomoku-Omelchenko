@@ -5,6 +5,6 @@ class RandomPlayer :public TicTacPlayer
 public:
 	RandomPlayer();
 	virtual~RandomPlayer();
-	virtual bool MakeMove();
+	virtual int MakeMove();
 };
 

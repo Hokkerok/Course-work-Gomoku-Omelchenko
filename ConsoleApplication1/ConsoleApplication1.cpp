@@ -1,21 +1,45 @@
 ﻿#include "pch.h"
 #include <iostream>
 #include "TicTacManager.h"
+#include "SFML/Graphics.hpp"
+using namespace sf;
 
 int main()
 {
+	sf::RenderWindow window(sf::VideoMode(644, 695), "Homoku_15x15");
+	sf::Event event;
+
     setlocale(LC_ALL, "Russian");
     TicTacManager manager;
+	manager.SetWindow(&window);
+
 	if (!manager.Init())
 	{
-		cout << "Неверные данные, выходим...";
-		_getch();
 		return 0;
 	}
-	while (!manager.IsGameFinished())
+	window.clear();
+
+	bool closed = false;
+
+	do
 	{
-		manager.MakeMove();
-	}
+		manager.MakeMove(closed);
+		if (closed == true)
+			break;
+	} while (!manager.IsGameFinished());
+
+	if (!closed)
+		while (window.isOpen())
+		{
+			while (window.pollEvent(event))
+			{
+				if (event.type == sf::Event::Closed)
+					window.close();
+			}
+		}
+
+	window.close();
+	return 0;
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
